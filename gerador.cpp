@@ -55,13 +55,15 @@ int main()
 {
     
     int qtd,passo,incerteza,escolha,parametros;
-    float range_erro,soma;
+    float range_erroX,range_erroY,soma;
     float *vetor_x,*vetor_y;
     srand(time(NULL));
     printf("Digite a quantidade de valores: ");//quantidade de valores que terão no vetor gerado
     scanf("%d", &qtd);
-    printf("Digite a range do erro: ");//tamanho do erro dos parametros
-    scanf("%f", &range_erro);
+    printf("Digite a range do erro X: ");//tamanho do erro dos parametros
+    scanf("%f", &range_erroX);
+    printf("Digite a range do erro Y: ");//tamanho do erro dos parametros
+    scanf("%f", &range_erroY);
     printf("Digite o espaco entre os valores gerados: ");//espaço maximo entre os valores
     scanf("%d", &passo);
     vetor_x = (float*) new float[qtd];
@@ -70,15 +72,21 @@ int main()
     {
         vetor_x[i] = soma + 1+rand()%(passo);
         soma = vetor_x[i];
-        if(range_erro!=0)
+        
+        if(range_erroX!=0)
         {
-            vetor_x[i]+= gera_erro(range_erro);
-            
+            vetor_x[i]+= gera_erro(range_erroX);
         }
+        else
+        {
+            vetor_x[i]+= gera_erro(range_erroY);  
+        }
+            
+        
 
     }
     float param[4];
-    printf("Digite a funcao desejada:\n1-Linear\n2-Quadrada\n3-Cubica\n5-Racional\n");//escolhe a função
+    printf("Digite a funcao desejada:\n1-Linear\n2-Quadrada\n3-Cubica\n4-Exponencial\n5-Racional\n");//escolhe a função
     scanf("%d",&escolha);
     switch(escolha)
     {
@@ -92,7 +100,7 @@ int main()
             for(int i=0;i<qtd;i++)
             {
                 vetor_y[i]= linear(vetor_x[i],param[0],param[1]);
-                vetor_y[i]+=gera_erro(range_erro);
+                vetor_y[i]+=gera_erro(range_erroY);
             }
             break;
         
@@ -106,7 +114,7 @@ int main()
             for(int i=0;i<qtd;i++)
             {
                 vetor_y[i]= quadrada(vetor_x[i],param[0],param[1],param[2]);
-                vetor_y[i]+=gera_erro(range_erro);
+                vetor_y[i]+=gera_erro(range_erroY);
             }
             break;
         case 3:
@@ -119,7 +127,7 @@ int main()
             for(int i=0;i<qtd;i++)
             {
                 vetor_y[i]= cubica(vetor_x[i],param[0],param[1],param[2],param[3]);
-                vetor_y[i]+=gera_erro(range_erro);
+                vetor_y[i]+=gera_erro(range_erroY);
             }
             break;
         case 4:
@@ -132,7 +140,7 @@ int main()
             for(int i=0;i<qtd;i++)
             {
                 vetor_y[i]= exponencial(vetor_x[i],param[0],param[1]);
-                vetor_y[i]+=gera_erro(range_erro);
+                vetor_y[i]+=gera_erro(range_erroY);
             }
             break;
         case 5:
@@ -145,7 +153,7 @@ int main()
             for(int i=0;i<qtd;i++)
             {
                 vetor_y[i]= racional(vetor_x[i],param[0],param[1]);
-                vetor_y[i]+=gera_erro(range_erro);
+                vetor_y[i]+=gera_erro(range_erroY);
             }
             break;
 
@@ -154,8 +162,8 @@ int main()
     FILE *f2 = fopen("log.txt","w");
     for(int i=0;i<qtd;i++)
     {
-        printf("%f;%f;%f;%f\n",vetor_x[i],range_erro,vetor_y[i],range_erro);
-        fprintf(f,"%f;%f;%f;%f\n",vetor_x[i],range_erro,vetor_y[i],range_erro);//imprime arquivo .csv com os valores usados
+        printf("%f;%f;%f;%f\n",vetor_x[i],range_erroX,vetor_y[i],range_erroY);
+        fprintf(f,"%f;%f;%f;%f\n",vetor_x[i],range_erroX,vetor_y[i],range_erroY);//imprime arquivo .csv com os valores usados
 
     }
     //a partir daqui tudo imprime no log.txt e so é grande pra ficar bonito, não tem mais nada aqui
@@ -185,12 +193,24 @@ int main()
         }
         else
         {
-            fprintf(f2,"]\n\nerro=[");
+            fprintf(f2,"]\n\nerro X=[");
         }
     }
     for(int i=0;i<qtd;i++)
     {
-        fprintf(f2,"%f",range_erro);
+        fprintf(f2,"%f",range_erroX);
+        if(i<(qtd-1))
+        {
+            fprintf(f2,",");
+        }
+        else
+        {
+            fprintf(f2,"]\nerro Y=[");
+        }
+    }
+    for(int i=0;i<qtd;i++)
+    {
+        fprintf(f2,"%f",range_erroY);
         if(i<(qtd-1))
         {
             fprintf(f2,",");
