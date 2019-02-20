@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <math.h>
 
+//gera um erro randomico com base no parametro passado
 float gera_erro(float max)
 {
     int decimais = 0;
@@ -25,27 +26,27 @@ float gera_erro(float max)
 
 }
 
-float exponencial(float x, float a, float b)
+float exponencial(float x, float a, float b)//funcao exponencial f(x)=B*e^(A*X)
 {
     return b*exp(x*a);
 }
 
-float linear(float x, float a, float b)
+float linear(float x, float a, float b)// função linear f(x)=AX+B
 {
     return x*a + b;
 }
 
-float quadrada(float x, float a, float b, float c)
+float quadrada(float x, float a, float b, float c)//função quadrada f(x)=A*X² + B*x + C
 {
     return a*x*x + b*x + c;
 }
 
-float cubica(float x, float a, float b, float c, float d)
+float cubica(float x, float a, float b, float c, float d)//função cubica f(x)=A*X³ + B*X² + C*X + D
 {
     return a*x*x*x + b*x*x + c*x + d;
 }
 
-float racional(float x, float a, float b)
+float racional(float x, float a, float b)//função racional f(x)= A/(X+B)
 {
     return a/(x+b);
 }
@@ -57,11 +58,11 @@ int main()
     float range_erro,soma;
     float *vetor_x,*vetor_y;
     srand(time(NULL));
-    printf("Digite a quantidade de valores: ");
+    printf("Digite a quantidade de valores: ");//quantidade de valores que terão no vetor gerado
     scanf("%d", &qtd);
-    printf("Digite a range do erro: ");
+    printf("Digite a range do erro: ");//tamanho do erro dos parametros
     scanf("%f", &range_erro);
-    printf("Digite o espaco entre os valores gerados: ");
+    printf("Digite o espaco entre os valores gerados: ");//espaço maximo entre os valores
     scanf("%d", &passo);
     vetor_x = (float*) new float[qtd];
     vetor_y = (float*) new float[qtd];
@@ -77,7 +78,7 @@ int main()
 
     }
     float param[4];
-    printf("Digite a funcao desejada:\n1-Linear\n2-Quadrada\n3-Cubica\n5-Racional\n");
+    printf("Digite a funcao desejada:\n1-Linear\n2-Quadrada\n3-Cubica\n5-Racional\n");//escolhe a função
     scanf("%d",&escolha);
     switch(escolha)
     {
@@ -154,9 +155,10 @@ int main()
     for(int i=0;i<qtd;i++)
     {
         printf("%f;%f;%f;%f\n",vetor_x[i],range_erro,vetor_y[i],range_erro);
-        fprintf(f,"%f;%f;%f;%f\n",vetor_x[i],range_erro,vetor_y[i],range_erro);
+        fprintf(f,"%f;%f;%f;%f\n",vetor_x[i],range_erro,vetor_y[i],range_erro);//imprime arquivo .csv com os valores usados
 
     }
+    //a partir daqui tudo imprime no log.txt e so é grande pra ficar bonito, não tem mais nada aqui
     for(int i=0;i<parametros;i++)
     {
         fprintf(f2,"Var %c: %f\n",('A'+parametros),param[i]);
