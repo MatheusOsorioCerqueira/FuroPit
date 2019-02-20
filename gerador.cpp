@@ -147,7 +147,7 @@ int main()
         parametros = 2;
             for(int i=0;i<2;i++)
             {
-                printf("Var %c: ", ('A'+i));
+                printf("Var %c: ", ('A'+ i));
                 scanf("%f",&param[i]);
             }
             for(int i=0;i<qtd;i++)
@@ -169,7 +169,7 @@ int main()
     //a partir daqui tudo imprime no log.txt e so é grande pra ficar bonito, não tem mais nada aqui
     for(int i=0;i<parametros;i++)
     {
-        fprintf(f2,"Var %c: %f\n",('A'+parametros),param[i]);
+        fprintf(f2,"Var %c: %f\n",('A'+ i),param[i]);
     }
     fprintf(f2,"funcao usada: %d\n\nX=[",escolha);
     for(int i=0;i<qtd;i++)
