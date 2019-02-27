@@ -159,3 +159,16 @@ class Fit_racional(Fit_curve):
 
 #====================================================
 
+
+#função para retornar os valores arredondados
+def rounded(values,decimal):
+    save = []
+    try:
+        for value in values:            
+            save.append(np.round(value,decimal))
+
+        return save
+    except(TypeError):
+        return np.round(values,decimal)
+
+
